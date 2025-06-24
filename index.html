@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Meine Webseite</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap" rel="stylesheet" />
+  <style>
+    body {
+      font-family: "Lato", sans-serif;
+      margin: 0;
+      color: white;
+      background-color: #000;
+    }
+    h1, h2, p {
+      opacity: 0;
+      transform: translateY(20px);
+      animation-fill-mode: forwards;
+    }
+    h1 {
+      color: rgba(255, 255, 255, 0.5);
+      animation: fadeInUp 1s ease forwards;
+      animation-delay: 0.2s;
+      margin-bottom: 0;
+    }
+    h2 {
+      color: #1e90ff;
+      margin-top: 10px;
+      animation: fadeInUp 1s ease forwards;
+      animation-delay: 0.5s;
+    }
+    p {
+      max-width: 600px;
+      font-size: 18px;
+      line-height: 1.4;
+      margin-top: 15px;
+      color: #ccc;
+      animation: fadeInUp 1s ease forwards;
+      animation-delay: 0.8s;
+    }
+    @keyframes fadeInUp {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    .container {
+      background-image: url('./img/circle-scatter-haikei.svg');
+      background-size: cover;
+      padding: 100px;
+      min-height: 100vh;
+      position: relative;
+    }
+    .navigation {
+      position: absolute;
+      right: 100px;
+      top: 40px;
+      z-index: 1001;
+    }
+    .nav-item {
+      position: relative;
+      display: inline-block;
+      margin-left: 20px;
+    }
+    a, button {
+      color: white;
+      text-decoration: none;
+      cursor: pointer;
+      font-size: 16px;
+      transition: color 0.3s ease;
+      background: none;
+      border: none;
+      padding: 0;
+      font-family: "Lato", sans-serif;
+    }
+    a:hover, button:hover {
+      text-decoration: underline;
+      color: #1e90ff;
+    }
+    .dropdown {
+      display: none;
+      position: absolute;
+      top: 25px;
+      right: 0;
+      background-color: rgba(0, 0, 0, 0.8);
+      padding: 15px;
+      border-radius: 10px;
+      z-index: 1000;
+      min-width: 250px;
+    }
+    .dropdown button {
+      display: block;
+      width: 100%;
+      margin-bottom: 10px;
+      padding: 10px;
+      background-color: rgba(255, 255, 255, 0.1);
+      border: none;
+      color: white;
+      text-align: left;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+    .dropdown button:hover {
+      background-color: rgba(30, 144, 255, 0.3);
+      color: #1e90ff;
+    }
+    #info-box {
+      margin-top: 50px;
+      padding: 20px;
+      background-color: rgba(255, 255, 255, 0.1);
+      border-radius: 10px;
+      max-width: 700px;
+      font-size: 18px;
+      white-space: pre-wrap;
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeInUp 0.7s forwards;
+      animation-delay: 1.1s;
+    }
+    /* Call to Action Button */
+    #cta-button {
+      padding: 12px 25px;
+      background-color: #1e90ff;
+      border: none;
+      border-radius: 6px;
+      color: white;
+      font-size: 16px;
+      cursor: pointer;
+      margin-top: 20px;
+      transition: background-color 0.3s ease, box-shadow 0.3s ease;
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeInUp 1s ease forwards;
+      animation-delay: 1.3s;
+      display: inline-block;
+    }
+    #cta-button:hover {
+      background-color: #005bbb;
+      box-shadow: 0 0 10px #1e90ff;
+    }
+    /* Link für Adresse mit Hover */
+    .address-link {
+      color: #1e90ff;
+      text-decoration: underline;
+      cursor: pointer;
+      transition: color 0.3s ease;
+    }
+    .address-link:hover {
+      color: #63b3ff;
+    }
+    /* Download Bereich */
+    #downloads {
+      position: fixed;
+      bottom: 10px;
+      right: 10px;
+      background-color: rgba(0,0,0,0.75);
+      padding: 10px 15px;
+      border-radius: 10px;
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      font-size: 12px;
+      color: #ccc;
+      max-width: 90vw;
+      box-shadow: 0 0 10px rgba(30, 144, 255, 0.5);
+    }
+    #downloads h3 {
+      margin: 0;
+      margin-right: 15px;
+      color: #1e90ff;
+      font-weight: 700;
+      font-size: 14px;
+      white-space: nowrap;
+    }
+    .download-item {
+      background-color: rgba(255, 255, 255, 0.12);
+      border: 1px solid rgba(30, 144, 255, 0.3);
+      border-radius: 6px;
+      padding: 5px 10px;
+      transition: background-color 0.3s ease, border-color 0.3s ease;
+      white-space: nowrap;
+      min-width: 120px;
+      font-size: 11px;
+      cursor: pointer;
+    }
+    .download-item a {
+      color: #1e90ff;
+      text-decoration: none;
+      font-weight: 600;
+      display: block;
+    }
+    .download-item:hover {
+      background-color: rgba(30, 144, 255, 0.15);
+      border-color: #1e90ff;
+    }
+    /* QR-Code Container */
+    #qr-codes {
+      margin-top: 30px;
+      display: flex;
+      gap: 20px;
+      justify-content: start;
+      flex-wrap: wrap;
+    }
+    #qr-codes img {
+      width: 90px;
+      height: 90px;
+      border-radius: 12px;
+      box-shadow: 0 0 10px #1e90ff;
+      transition: transform 0.3s ease;
+      cursor: pointer;
+    }
+    #qr-codes img:hover {
+      transform: scale(1.1);
+      box-shadow: 0 0 15px #1e90ff;
+    }
+    /* Unterschiedliche Farben für WhatsApp und Telegram */
+    #qr-codes a:nth-child(2) img {
+      box-shadow: 0 0 10px #25D366;
+    }
+    #qr-codes a:nth-child(2) img:hover {
+      box-shadow: 0 0 15px #25D366;
+    }
+    #qr-codes a:nth-child(3) img {
+      box-shadow: 0 0 10px #0088cc;
+    }
+    #qr-codes a:nth-child(3) img:hover {
+      box-shadow: 0 0 15px #0088cc;
+    }
+  </style>
+</head>
+<body>
+
+  <header class="navigation">
+    <span class="nav-item" onclick="toggleDropdown('kontaktDropdown')">
+      <a>Kontaktdaten</a>
+      <div class="dropdown" id="kontaktDropdown">
+        <ul style="list-style:none; padding-left: 0; margin:0;">
+          <li><strong>Telefon:</strong> 0176 63424442</li>
+          <li><strong>E-Mail:</strong> <a href="mailto:kahramanabdo256@gmail.com" style="color:#1e90ff;">kahramanabdo256@gmail.com</a></li>
+          <li>
+            <strong>Adresse:</strong>
+            <a href="https://www.google.com/maps?q=Ruth-Baumgarte-Str.+7,+10318+Berlin" target="_blank" class="address-link" rel="noopener noreferrer">
+              Ruth-Baumgarte-Str. 7, 10318 Berlin
+            </a>
+          </li>
+        </ul>
+      </div>
+    </span>
+    <span class="nav-item" onclick="toggleDropdown('ueberMichDropdown')">
+      <a>Über mich</a>
+      <div class="dropdown" id="ueberMichDropdown">
+        <button onclick="showInfo('persoenlich')">👤 Persönliches</button>
+        <button onclick="showInfo('profil')">💼 Profil</button>
+        <button onclick="showInfo('staerken')">💪 Stärken</button>
+        <button onclick="showInfo('beruf')">🧪 Berufserfahrung</button>
+        <button onclick="showInfo('bildung')">🎓 Bildung</button>
+        <button onclick="showInfo('sprachen')">🌐 Sprachen</button>
+        <button onclick="showInfo('it')">💻 IT-Kenntnisse</button>
+        <button onclick="showInfo('interessen')">🎯 Interessen</button>
+        <button onclick="showInfo('pdf')">📄 PDFs</button>
+      </div>
+    </span>
+  </header>
+
+  <main class="container">
+    <div class="content">
+      <h1>Hallo!</h1>
+      <h2>IT-Assistent & Softwareentwickler aus Berlin</h2>
+      <p>Ich unterstütze Unternehmen bei der Digitalisierung mit praktischen IT-Kenntnissen und spannenden Projekten. Lass uns gemeinsam deine Idee umsetzen!</p>
+      <button id="cta-button" onclick="window.location.href='mailto:kahramanabdo256@gmail.com'">Kontakt aufnehmen</button>
+
+      <!-- QR-Code Bilder -->
+      <div id="qr-codes">
+        <a href="https://instagram.com/deinusername" target="_blank" rel="noopener noreferrer" title="Instagram">
+          <img src="./img/instagram_qr.jpg" alt="Instagram QR-Code" />
+        </a>
+        <a href="https://wa.me/deineNummer" target="_blank" rel="noopener noreferrer" title="WhatsApp">
+          <img src="./img/whatsapp_qr.jpg" alt="WhatsApp QR-Code" />
+        </a>
+        <a href="https://t.me/deinTelegram" target="_blank" rel="noopener noreferrer" title="Telegram">
+          <img src="./img/telegram_qr.jpg" alt="Telegram QR-Code" />
+        </a>
+      </div>
+
+      <div id="info-box"></div>
+    </div>
+  </main>
+
+  <div id="downloads">
+    <h3>Interessante Programme:</h3>
+    <div class="download-item">
+      <a href="https://www.python.org/downloads/" target="_blank" rel="noopener noreferrer">Python</a>
+    </div>
+    <div class="download-item">
+      <a href="https://notepad-plus-plus.org/downloads/" target="_blank" rel="noopener noreferrer">Notepad++</a>
+    </div>
+    <div class="download-item">
+      <a href="https://www.mozilla.org/de/firefox/new/" target="_blank" rel="noopener noreferrer">Firefox</a>
+    </div>
+    <div class="download-item">
+      <a href="https://www.apachefriends.org/download.html" target="_blank" rel="noopener noreferrer">XAMPP</a>
+    </div>
+    <div class="download-item">
+      <a href="https://www.java.com/de/download/manual.jsp" target="_blank" rel="noopener noreferrer">Java</a>
+    </div>
+    <div class="download-item">
+      <a href="https://www.microsoft.com/de-de/microsoft-365/download-office" target="_blank" rel="noopener noreferrer">Microsoft 365</a>
+    </div>
+    <div class="download-item">
+      <a href="https://www.autodesk.com/de/products/autocad/overview?panel=buy&mktvar002=afc_de_nmpi_ppc&AID=11006767&PID=2016554&gclid=fb57ad7cc2bb18ad725ec5251b237543&gclsrc=3p.ds&ds_rl=1232386&ds_rl=1232407&ds_rl=1232410&msclkid=fb57ad7cc2bb18ad725ec5251b237543" target="_blank" rel="noopener noreferrer">AutoCAD</a>
+    </div>
+  </div>
+
+  <script>
+    function toggleDropdown(id) {
+      const dropdown = document.getElementById(id);
+      if (!dropdown) return;
+
+      // Alle Dropdowns schließen
+      document.querySelectorAll('.dropdown').forEach(d => {
+        if (d !== dropdown) d.style.display = 'none';
+      });
+
+      // Dropdown umschalten
+      dropdown.style.display = dropdown.style.display === 'block' ? 'none' : 'block';
+    }
+
+    // Texte für die Info-Box (mit Bild bei 'persoenlich')
+    const texts = {
+      persoenlich: `<img src="./img/Kahraman.jpg" alt="Foto Abdo Kahraman" style="max-width:150px; border-radius: 10px; margin-bottom: 10px;" />
+                   <br>Ich bin Abdo Kahraman, geboren am 25.04.1995, komme aus Berlin und bin ein leidenschaftlicher IT-Assistent und Softwareentwickler.`,
+      profil: `Ich unterstütze Unternehmen bei der Digitalisierung mit praktischen IT-Kenntnissen und spannenden Projekten.`,
+      staerken: `Meine Stärken sind Problemlösung, Teamarbeit und Kreativität in der Softwareentwicklung.`,
+      beruf: `Ich habe bereits Berufserfahrung in verschiedenen IT-Projekten gesammelt, unter anderem in der Webentwicklung und Automatisierung.`,
+      bildung: `Meine Ausbildung umfasst IT-Assistent und weiterführende Kurse in Programmierung und Netzwerktechnik.`,
+      sprachen: `Ich spreche fließend Deutsch, Englisch und habe Grundkenntnisse in Türkisch.`,
+      it: `Kenntnisse in Python, Java, HTML, CSS, JavaScript, Datenbanken und IT-Support.`,
+      interessen: `Ich interessiere mich für neue Technologien, Open-Source-Projekte und kreative Softwarelösungen.`,
+      pdf: `Meine Lebensläufe und weitere Dokumente können Sie gerne auf Anfrage erhalten.`,
+    };
+
+    function showInfo(key) {
+      const infoBox = document.getElementById('info-box');
+      infoBox.innerHTML = texts[key] || '';
+      infoBox.style.opacity = '1';
+      infoBox.style.transform = 'translateY(0)';
+    }
+
+    // Dropdown schließen, wenn außerhalb geklickt wird
+    document.addEventListener('click', function(event) {
+      const navItems = document.querySelectorAll('.nav-item');
+      let clickedInsideNav = false;
+      navItems.forEach(item => {
+        if (item.contains(event.target)) {
+          clickedInsideNav = true;
+        }
+      });
+      if (!clickedInsideNav) {
+        document.querySelectorAll('.dropdown').forEach(d => d.style.display = 'none');
+      }
+    });
+  </script>
+</body>
+</html>
